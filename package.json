@@ -1,0 +1,40 @@
+{
+  "name": "react-introduction-presentation",
+  "version": "1.0.0",
+  "description": "Introduction to React.js",
+  "main": "index.js",
+  "private": true,
+  "dependencies": {
+    "codemirror": "^5.39.2",
+    "react-codemirror2": "^5.1.0"
+  },
+  "devDependencies": {
+    "mdx-deck": "^1.7.7",
+    "style-loader": "^0.22.1",
+    "css-loader": "^1.0.0"
+  },
+  "scripts": {
+    "start": "mdx-deck deck.mdx",
+    "build": "mdx-deck build deck.mdx",
+    "pdf": "mdx-deck pdf deck.mdx",
+    "image": "mdx-deck screenshot deck.mdx",
+    "help": "mdx-deck",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/awayken/react-introduction-presentation.git"
+  },
+  "keywords": [
+    "reactjs",
+    "introduction",
+    "presentation",
+    "mdx"
+  ],
+  "author": "Miles Rausch",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/awayken/react-introduction-presentation/issues"
+  },
+  "homepage": "https://github.com/awayken/react-introduction-presentation#readme"
+}

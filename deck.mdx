@@ -1,0 +1,426 @@
+import { Appear, Head, Image } from 'mdx-deck'
+import { FullScreenCode, Split } from 'mdx-deck/layouts'
+import Button from './components/Button'
+import Link from './components/Link'
+
+export { default as theme } from './theme'
+
+<Head>
+  <title>Introduction to React</title>
+</Head>
+
+# Introduccion A React
+
+by Maudel
+
+```notes
+Don't ramble. Go fast.
+```
+---
+
+
+## Links
+
+Slides & Demo:
+
+[github.com/awayken/react-introduction-presentation](https://github.com/awayken/react-introduction-presentation)
+
+---
+
+<Image src="./images/reactBolivia.jpg" size="contain" />
+
+```notes
+Miles Rausch, a Source Code Alchemist in Sioux Falls, SD.
+
+Blogs at http://milesrausch.com and writes at https://miles.ink.
+
+Developer for https://carsforsale.com.
+```
+---
+
+Hablemos sobre las interfaces de Usuario.
+
+```notes
+TIME: 2:30.
+
+I've written plenty of jQuery spaghetti code. Hard to keep everything connected.
+```
+---
+
+<Image src="./images/facebook-notification.png" size="contain" />
+
+```notes
+Perhaps apocryphal, but the source of frustration that became React.
+```
+---
+
+## Que es React?
+
+<ul>
+  <Appear>
+    <li>"Una libreria de javascript para construir interfaces de usuario."</li>
+    <li>Declarativa - vistas simples que reaccionan a cambios en el estado.</li>
+    <li>Basado en Components - encapsula tu UI en pequeños pedazos</li>
+    <li>Multiplataforma - renderiza en el browser, dispositivos mobiles o realidad virtual</li>
+    <li>Popular - Facebook, Instagram, Twitter, Walmart y mas</li>
+    <li>Gran Ecosistema- facil de publicar componentes <kbd>npm</kbd></li>
+  </Appear>
+</ul>
+
+```notes
+TIME: 7:30
+
+"A JavaScript library for building user interfaces"
+Declarative
+Component-based
+Multiple render targets
+Popular
+Huge ecosystem
+```
+---
+
+## Como Funciona?
+
+<ul>
+  <Appear>
+    <li>Virtual DOM</li>
+    <li>JSX</li>
+    <li>Props reflejan configuracion</li>
+    <li>State reflejan cambios en la data</li>
+  </Appear>
+</ul>
+
+```notes
+TIME: 13:15
+
+Virtual DOM
+JSX
+Props reflect configuration
+State reflects changing data
+```
+---
+
+Exploremos un poco mas.
+
+```notes
+It's a lot to take in.
+```
+---
+export default FullScreenCode
+
+```jsx
+// JSX
+<Button text="Hola, Mundo!" size={10 + 5} disabled>
+  <p>Como estas?</p>
+</Button>
+
+// JavaScript
+React.createElement(
+  Button,
+  { text: 'Hola, Mundo!', size: 10 + 5, disabled: true },
+  React.createElement(
+    'p',
+    null,
+    'Como estas?'
+  )
+)
+```
+
+```notes
+TIME: 19:45
+
+JSX example
+```
+---
+export default FullScreenCode
+
+```jsx
+// Button.jsx
+const Button = (props) => (
+  <button className="magicbutton" onClick={props.onClick}>
+    <h1>{props.heading}<h1>
+    {props.children}
+  </button>
+)
+
+// App.jsx
+<Button heading="Hola, Mundo!" onClick={startMagic}>
+  <p>Que comienze la magia!</p>
+</Button>
+```
+
+```notes
+TIME: 25:00
+
+Props example
+```
+---
+export default FullScreenCode
+
+```jsx
+// Button.jsx
+class Button extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = { contador: 0 }
+  }
+  aumenta = () => {
+    const contador = this.state.count;
+    this.setState({ contador: contador + 1 })
+  }
+  render() {
+    return (<button onClick={this.aumenta}>
+      {this.props.label}: {this.state.contador}
+    </button>)
+  }
+}
+```
+
+```notes
+TIME: 31:00
+
+State example
+```
+---
+export default Split
+
+```jsx
+// App.jsx
+<Button label="Clicks" />
+
+<Button label="Clacks" />
+```
+
+<Button label="Clicks" />
+
+<Button label="Clacks" />
+
+```notes
+TIME: 37:00
+
+Live demo
+```
+---
+
+Quieres otro ejemplo ?
+
+<Appear>
+  Esta misma presentacion esta hecha en React.
+</Appear>
+
+---
+
+<Image src="./images/ben-white-197668-unsplash.jpg" />
+
+```notes
+Photo by Ben White: https://unsplash.com/photos/qDY9ahp0Mto
+```
+---
+
+Como Empezar?
+
+https://reactjs.org/docs/add-react-to-a-website.html
+
+```notes
+TIME: 40:00
+```
+---
+
+## Paso 1: Agrega un Contenedor en el HTML
+
+```html
+<body>
+  <!-- snip -->
+  <div id="like_button"></div>
+  <!-- snip -->
+</body>
+```
+
+```notes
+Every component needs a container to mount to.
+
+React can be added incrementally. You don't need a whole site written in it.
+
+You can use a very small component to start and then branch out from there.
+```
+---
+
+## Paso 2: Agrega las librerias
+
+```html
+<head>
+<script src="https://unpkg.com/react@16/umd/react.development.js"
+  crossorigin></script>
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+  crossorigin></script>
+</head>
+<body>
+  <!-- snip -->
+  <script src="like_button.js"></script>
+</body>
+```
+
+```notes
+Include React library.
+
+Include ReactDOM script, because we are rendering to DOM.
+
+Finally, include our component script.
+```
+---
+export default FullScreenCode
+
+```js
+const e = React.createElement;
+class LikeButton extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { liked: false };
+  }
+  render() {
+    if (this.state.liked) { return 'You liked this.'; }
+    return e('button',
+      { onClick: () => this.setState({ liked: true }) },
+      'Like');
+  }
+}
+ReactDOM.render(e(LikeButton), document.querySelector('#like_button'));
+```
+
+```notes
+Step 3: Create a React Component
+```
+---
+
+Let's see it in action:
+
+https://codepen.io/awayken/pen/gBGLzY
+
+---
+
+Que pasa si quieres una aplicacion web mas elaborada con react?
+
+```notes
+TIME: 42:00
+```
+---
+
+## Create React App
+
+```bash
+npx create-react-app my-app
+cd my-app
+
+# To work on your site and run it
+npm start
+
+# To create an optimized build
+npm run build
+```
+
+```notes
+It sets up your development environment so that you can use the latest JavaScript features, provides a nice developer experience, and optimizes your app for production.
+```
+
+---
+
+####
+```notes
+- Alright, so the most important concept to know to actually build something in react is....
+- CLICK SLIDE
+
+- COMPONENTS!!!!! Conceptually, components are like JavaScript functions. They accept arbitrary inputs (called “props”) which are also important
+- CLICK SLIDE
+- and return a special kind of markup called JSX which is a powerful tool, combining HTML and Javascript to describe what should show up on a page
+- These components will often look like these. They are Functions which accept props (or properties), and return a mix of HTML and Javascript
+```
+---
+
+### Types of Components
+```js
+
+<div>
+  <Appear>
+  <div><div style={{ display: 'flex', justifyContent: 'space-around' }}>
+    <div>Functional</div>
+    <div>Stateful</div>
+  </div></div>
+  <div><div style={{ display: 'flex', justifyContent: 'space-between' }}>
+    <div style={{ fontSize: 22 }}>{` const MyComponent = props =>
+
+  <div style={props.styles}>
+    <Title value={props.title} />
+    <div style={{ padding: 10 }}>
+      My name is: {props.name}
+    </div>
+    <StyledButton
+      text="Submit"
+      onClick={() => props.handleSubmit(props.name)}
+    />
+    <StyledButton
+      text="Exit"
+      onClick={props.handleExitClick}
+    />
+  </div>
+`}</div>
+  <div style={{ fontSize: 22 }}>{`class StateComponent extends React.Component {
+  state = {
+    nameForm: '',
+    counter: 0,
+    todos: {}
+  }\n
+  componentDidMount() {
+    fetch(\'https://my-remote-endpoint.biz/todos/\${localStorage.name}\')
+      .then(res => this.setState({ todos: res.data.todos }))
+  }\n
+  updateCounter = () => {
+    this.setState({ counter: this.state.counter + 1 })
+  }
+  updateName = e => {
+    this.setState({ nameForm: e.target.value })
+  }\n
+  render() {
+    return (
+      // JSX code goes here
+      // I just don't want to take up too much space on the page
+    )
+  }
+}`}</div>
+  </div></div>
+  </Appear>
+</div>
+
+```notes
+- There are actually two types of components in React
+- CLICK SLIDE
+- Functional and Stateful
+- CLICK SLIDE
+- on the Left we have a functional component, much like the few components we've already seen defined in this talk, they look like regular fat arrow Javascript functions
+- on the right we have a component which uses the syntax of an ES6 class. this component is more involved because it can have state, it has lifecycle methods which are functions that execute when the component is rendered, updates, or taken off the page. Furthermore we can define our own methods that manipulate the state of the component
+```
+
+---
+
+## Recursos
+
+  * https://reactjs.org/
+  * https://reactjs.org/tutorial/tutorial.html
+  * https://reactjs.org/docs/thinking-in-react.html
+  * https://reactjs.org/community/courses.html
+  * https://github.com/enaqx/awesome-react
+
+```notes
+https://reactjs.org/
+https://reactjs.org/tutorial/tutorial.html
+Play around on CodePen or CodeSandbox
+https://reactjs.org/docs/thinking-in-react.html
+https://reactjs.org/community/courses.html
+https://github.com/enaqx/awesome-react
+```
+---
+
+Preguntas?
+
+---
+
+Gracias!
